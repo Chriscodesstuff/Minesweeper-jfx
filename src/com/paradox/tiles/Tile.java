@@ -8,6 +8,8 @@ public interface Tile {
   public int getX();
   public int getY();
   public Grid getGrid();
+  public boolean getRevealed();
+  public void setRevealed(boolean b);
   public Node show();
   public void rClick();
   public void lClick();

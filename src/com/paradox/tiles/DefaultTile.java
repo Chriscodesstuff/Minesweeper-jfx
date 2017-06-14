@@ -15,6 +15,7 @@ public class DefaultTile extends AbstractTile {
 
   }
   public void lClick() {
+    setRevealed(true);
     Tile[] adjacents = getGrid().getAdjacents(getX(),getY());
     int num = 0;
     for (Tile t : adjacents) {
@@ -46,6 +47,14 @@ public class DefaultTile extends AbstractTile {
         break;
       case 8:
         setViewport(new Rectangle2D(32,48,16,16));
+        break;
+      case 0:
+        setViewport(new Rectangle2D(0,32,16,16));
+        for (Tile t : adjacents) {
+          if (t instanceof DefaultTile && !t.getRevealed()) {
+            t.lClick();
+          }
+        }
         break;
       default:
         setViewport(new Rectangle2D(0,32,16,16));

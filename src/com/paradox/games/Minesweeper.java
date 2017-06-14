@@ -32,12 +32,10 @@ public class Minesweeper extends AbstractGame {
     }
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
-        if (grid.get(i,j)!=null) {
-          getGroup().getChildren().add(grid.get(i,j).show());
+        if (grid.get(i,j)==null) {
+          grid.set(i,j,new DefaultTile(i,j));
         }
-        if (grid.get(i,j) instanceof DefaultTile) {
-          grid.get(i,j).lClick();
-        }
+        getGroup().getChildren().add(grid.get(i,j).show());
       }
     }
   }
@@ -47,6 +45,7 @@ public class Minesweeper extends AbstractGame {
   }
 
   public boolean lClick(int x, int y) {
+    grid.get(x,y).lClick();
     return false;
   }
 }
