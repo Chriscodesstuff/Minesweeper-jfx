@@ -72,6 +72,19 @@ public abstract class AbstractTile implements Tile {
     return img;
   }
 
-  public abstract boolean rClick();
+  public int rClick() {
+    if (!getRevealed()) {
+      setMarked(!getMarked());
+      if (getMarked()) {
+        setViewport(new Rectangle2D(0,16,16,16));
+        return 1;
+      } else {
+        setViewport(new Rectangle2D(0,0,16,16));
+        return -1;
+      }
+    }
+    return 0;
+  }
+
   public abstract boolean lClick();
 }

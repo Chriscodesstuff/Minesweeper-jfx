@@ -11,23 +11,17 @@ public class Mine extends AbstractTile {
     super(newX, newY);
   }
 
-  public boolean rClick() {
-    setMarked(!getMarked());
-    if (getMarked()) {
-      setViewport(new Rectangle2D(0,16,16,16));
-    } else {
-      setViewport(new Rectangle2D(0,0,16,16));
-    }
-    return(getMarked());
-  }
   public boolean lClick() {
-    for (int i = 0; i < getGrid().getWidth(); i++) {
-      for (int j = 0; j < getGrid().getHeight(); j++) {
-        if (getGrid().get(i,j) instanceof Mine) {
-          getGrid().get(i,j).setViewport(new Rectangle2D(0,48,16,16));
+    if (!getMarked()) {
+      for (int i = 0; i < getGrid().getWidth(); i++) {
+        for (int j = 0; j < getGrid().getHeight(); j++) {
+          if (getGrid().get(i,j) instanceof Mine) {
+            getGrid().get(i,j).setViewport(new Rectangle2D(0,48,16,16));
+          }
         }
       }
+      return true;
     }
-    return true;
+    return false;
   }
 }

@@ -11,61 +11,53 @@ public class DefaultTile extends AbstractTile {
     super(newX, newY);
   }
 
-  public boolean rClick() {
-    setMarked(!getMarked());
-    if (getMarked()) {
-      setViewport(new Rectangle2D(0,16,16,16));
-    } else {
-      setViewport(new Rectangle2D(0,0,16,16));
-    }
-    return getMarked();
-  }
-
   public boolean lClick() {
-    setRevealed(true);
-    Tile[] adjacents = getGrid().getAdjacents(getX(),getY());
-    int num = 0;
-    for (Tile t : adjacents) {
-      if (t instanceof Mine) {
-        num++;
-      }
-    }
-    switch (num) {
-      case 1:
-        setViewport(new Rectangle2D(16,0,16,16));
-        break;
-      case 2:
-        setViewport(new Rectangle2D(16,16,16,16));
-        break;
-      case 3:
-        setViewport(new Rectangle2D(16,32,16,16));
-        break;
-      case 4:
-        setViewport(new Rectangle2D(16,48,16,16));
-        break;
-      case 5:
-        setViewport(new Rectangle2D(32,0,16,16));
-        break;
-      case 6:
-        setViewport(new Rectangle2D(32,16,16,16));
-        break;
-      case 7:
-        setViewport(new Rectangle2D(32,32,16,16));
-        break;
-      case 8:
-        setViewport(new Rectangle2D(32,48,16,16));
-        break;
-      case 0:
-        setViewport(new Rectangle2D(0,32,16,16));
-        for (Tile t : adjacents) {
-          if (t instanceof DefaultTile && !t.getRevealed()) {
-            t.lClick();
-          }
+    if (!getRevealed() && !getMarked()) {
+      setRevealed(true);
+      Tile[] adjacents = getGrid().getAdjacents(getX(),getY());
+      int num = 0;
+      for (Tile t : adjacents) {
+        if (t instanceof Mine) {
+          num++;
         }
-        break;
-      default:
-        setViewport(new Rectangle2D(0,32,16,16));
-        break;
+      }
+      switch (num) {
+        case 1:
+          setViewport(new Rectangle2D(16,0,16,16));
+          break;
+        case 2:
+          setViewport(new Rectangle2D(16,16,16,16));
+          break;
+        case 3:
+          setViewport(new Rectangle2D(16,32,16,16));
+          break;
+        case 4:
+          setViewport(new Rectangle2D(16,48,16,16));
+          break;
+        case 5:
+          setViewport(new Rectangle2D(32,0,16,16));
+          break;
+        case 6:
+          setViewport(new Rectangle2D(32,16,16,16));
+          break;
+        case 7:
+          setViewport(new Rectangle2D(32,32,16,16));
+          break;
+        case 8:
+          setViewport(new Rectangle2D(32,48,16,16));
+          break;
+        case 0:
+          setViewport(new Rectangle2D(0,32,16,16));
+          for (Tile t : adjacents) {
+            if (t instanceof DefaultTile && !t.getRevealed()) {
+              t.lClick();
+            }
+          }
+          break;
+        default:
+          setViewport(new Rectangle2D(0,32,16,16));
+          break;
+      }
     }
     return false;
   }
