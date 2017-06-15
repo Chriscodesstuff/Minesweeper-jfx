@@ -9,6 +9,9 @@ public class Minesweeper extends AbstractGame {
   private boolean won;
   private int width;
   private int height;
+  private int mines;
+  private int flags;
+  private int correctFlags;
 
   public Minesweeper (Group g) {
     super(g);
@@ -19,8 +22,9 @@ public class Minesweeper extends AbstractGame {
     int y;
     width = 15;
     height = 10;
+    mines = 30;
     grid = new DefaultGrid(width,height);
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < mines; i++) {
        while (true) {
          x = (int)(Math.random()*width);
          y = (int)(Math.random()*height);
@@ -41,6 +45,11 @@ public class Minesweeper extends AbstractGame {
   }
 
   public boolean rClick(int x, int y) {
+    if(grid.get(x,y).rClick()){
+      flags++;
+    } else {
+      flags--;
+    }
     return false;
   }
 

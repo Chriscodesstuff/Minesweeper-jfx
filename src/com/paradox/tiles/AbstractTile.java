@@ -25,15 +25,6 @@ public abstract class AbstractTile implements Tile {
     img.setX(x*16);
     img.setY(y*16);
     img.setViewport(viewport);
-    /*img.setOnMouseClicked(new EventHandler<MouseEvent>(){
-      public void handle (MouseEvent event){
-        this.lClick();
-      }
-    });*/
-  }
-
-  public void setGrid(Grid g) {
-    grid = g;
   }
 
   public int getX() {
@@ -56,6 +47,14 @@ public abstract class AbstractTile implements Tile {
     return revealed;
   }
 
+  public boolean getMarked () {
+    return marked;
+  }
+
+  public void setGrid(Grid g) {
+    grid = g;
+  }
+
   public void setViewport (Rectangle2D r) {
     viewport = r;
     img.setViewport(viewport);
@@ -65,10 +64,14 @@ public abstract class AbstractTile implements Tile {
     revealed = b;
   }
 
+  public void setMarked (boolean b) {
+    marked = b;
+  }
+
   public Node show () {
     return img;
   }
 
-  public abstract void rClick();
-  public abstract void lClick();
+  public abstract boolean rClick();
+  public abstract boolean lClick();
 }

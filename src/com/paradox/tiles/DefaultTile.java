@@ -11,10 +11,17 @@ public class DefaultTile extends AbstractTile {
     super(newX, newY);
   }
 
-  public void rClick() {
-
+  public boolean rClick() {
+    setMarked(!getMarked());
+    if (getMarked()) {
+      setViewport(new Rectangle2D(0,16,16,16));
+    } else {
+      setViewport(new Rectangle2D(0,0,16,16));
+    }
+    return getMarked();
   }
-  public void lClick() {
+
+  public boolean lClick() {
     setRevealed(true);
     Tile[] adjacents = getGrid().getAdjacents(getX(),getY());
     int num = 0;
@@ -60,5 +67,6 @@ public class DefaultTile extends AbstractTile {
         setViewport(new Rectangle2D(0,32,16,16));
         break;
     }
+    return false;
   }
 }

@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.MouseButton;
 import javafx.event.EventHandler;
 import com.paradox.games.*;
 
@@ -20,7 +21,12 @@ public class MainRunner extends Application
       public void handle (MouseEvent event){
         int x = (int)(event.getSceneX()/16);
         int y = (int)(event.getSceneY()/16);
-        game.lClick(x,y);
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+          game.lClick(x,y);
+        } else {
+          game.rClick(x,y);
+        }
+
       }
     });
     stage.setScene(scene);
