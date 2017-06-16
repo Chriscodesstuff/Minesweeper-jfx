@@ -23,7 +23,7 @@ public abstract class AbstractTile implements Tile {
     img = new ImageView(new Image("Tiles.png"));
     viewport = new Rectangle2D(0,0,16,16);
     img.setX(x*16);
-    img.setY(y*16);
+    img.setY((y*16)+32);
     img.setViewport(viewport);
   }
 

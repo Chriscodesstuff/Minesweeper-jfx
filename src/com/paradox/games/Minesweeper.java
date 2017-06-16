@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 
 public class Minesweeper extends AbstractGame {
   private Grid grid;
-  private Text text;
+  private Text message;
   private boolean gameOver;
   private int width;
   private int height;
@@ -20,16 +20,16 @@ public class Minesweeper extends AbstractGame {
     super(g);
   }
 
-  public void init(int w, int h, int m) {
+  public void init() {
     int x;
     int y;
-    width = w;
-    height = h;
-    mines = m;
+    width = 15;
+    height = 10;
+    mines = 30;
     flags = 0;
     gameOver = false;
     grid = new DefaultGrid(width,height);
-    text = new Text(6,(height+1)*16,"Mines: " + mines);
+    message = new Text(6,16,"Mines: " + mines);
     for (int i = 0; i < mines; i++) {
        while (true) {
          x = (int)(Math.random()*width);
@@ -48,13 +48,13 @@ public class Minesweeper extends AbstractGame {
         getGroup().getChildren().add(grid.get(i,j).show());
       }
     }
-    getGroup().getChildren().add(text);
+    getGroup().getChildren().add(message);
   }
 
   public boolean rClick(int x, int y) {
     if (!gameOver && (x >= 0) && (y >= 0) && (x <= width) && (y <= height)) {
       flags += grid.get(x,y).rClick();
-      text.setText("Mines: " + (mines-flags));
+      message.setText("Mines: " + (mines-flags));
       if (flags == mines) {
         for (int i = 0; i < width; i++) {
           for (int j = 0; j < height; j++) {
@@ -64,7 +64,7 @@ public class Minesweeper extends AbstractGame {
           }
         }
         gameOver = true;
-        text.setText("You won!");
+        message.setText("You won!");
       }
     }
     return false;
@@ -74,7 +74,7 @@ public class Minesweeper extends AbstractGame {
     if (!gameOver && (x >= 0) && (y >= 0) && (x <= width) && (y <= height)) {
       if (grid.get(x,y).lClick()) {
         gameOver = true;
-        text.setText("You Lost!");
+        message.setText("You Lost!");
       }
     }
     return false;

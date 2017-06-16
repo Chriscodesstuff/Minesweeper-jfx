@@ -18,22 +18,21 @@ public class MainRunner extends Application
   public void start(Stage stage){
     final Group root = new Group();
     final Game game = new Minesweeper(root);
-    final Scene scene = new Scene(root,400,300);
     final Button reset = new Button("Reset");
     reset.setLayoutX(6);
     reset.setLayoutY(200);
     reset.setOnAction(new EventHandler<ActionEvent>(){
       public void handle (ActionEvent event) {
         root.getChildren().clear();
-        game.init(15,10,30);
+        game.init();
         root.getChildren().add(reset);
       }
     });
     root.getChildren().add(reset);
-    scene.setOnMouseClicked(new EventHandler<MouseEvent>(){
+    root.setOnMouseClicked(new EventHandler<MouseEvent>(){
       public void handle (MouseEvent event){
         int x = (int)(event.getSceneX()/16);
-        int y = (int)(event.getSceneY()/16);
+        int y = (int)(event.getSceneY()/16)-2;
         if (event.getButton().equals(MouseButton.PRIMARY)) {
           game.lClick(x,y);
         } else {
@@ -42,6 +41,9 @@ public class MainRunner extends Application
 
       }
     });
+    final Scene scene = new Scene(root,240,300);
+    stage.setTitle("Minesweeper");
+    stage.setResizable(false);
     stage.setScene(scene);
     stage.show();
   }
