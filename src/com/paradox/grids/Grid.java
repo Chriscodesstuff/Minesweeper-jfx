@@ -8,4 +8,5 @@ public interface Grid {
   public int getWidth();
   public int getHeight();
   public Tile[] getAdjacents(int x, int y);
+  public Tile[] getAll();
 }

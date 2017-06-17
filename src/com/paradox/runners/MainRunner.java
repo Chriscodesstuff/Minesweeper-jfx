@@ -19,8 +19,8 @@ public class MainRunner extends Application
     final Group root = new Group();
     final Game game = new Minesweeper(root);
     final Button reset = new Button("Reset");
-    reset.setLayoutX(6);
-    reset.setLayoutY(200);
+    reset.setLayoutX(66);
+    reset.setLayoutY(1);
     reset.setOnAction(new EventHandler<ActionEvent>(){
       public void handle (ActionEvent event) {
         root.getChildren().clear();
@@ -31,17 +31,15 @@ public class MainRunner extends Application
     root.getChildren().add(reset);
     root.setOnMouseClicked(new EventHandler<MouseEvent>(){
       public void handle (MouseEvent event){
-        int x = (int)(event.getSceneX()/16);
-        int y = (int)(event.getSceneY()/16)-2;
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-          game.lClick(x,y);
+          game.lClick(event.getSceneX(),event.getSceneY());
         } else {
-          game.rClick(x,y);
+          game.rClick(event.getSceneX(),event.getSceneY());
         }
 
       }
     });
-    final Scene scene = new Scene(root,240,300);
+    final Scene scene = new Scene(root,500,500);
     stage.setTitle("Minesweeper");
     stage.setResizable(false);
     stage.setScene(scene);

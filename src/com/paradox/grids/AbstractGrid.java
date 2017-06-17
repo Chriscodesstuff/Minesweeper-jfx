@@ -19,6 +19,15 @@ public abstract class AbstractGrid implements Grid {
     }
     return arr[x][y];
   }
+  public Tile[] getAll() {
+    Tile[] all = new Tile[width*height];
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        all[i*j] = arr[i][j];
+      }
+    }
+    return all;
+  }
   public void set(int x, int y, Tile t) {
     if ((x < 0) || (y < 0) || (x >= width) || (y >= height)) {
       throw new IllegalArgumentException("Index is Out of Bounds");

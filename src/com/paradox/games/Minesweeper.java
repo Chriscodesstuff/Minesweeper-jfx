@@ -29,7 +29,7 @@ public class Minesweeper extends AbstractGame {
     flags = 0;
     gameOver = false;
     grid = new DefaultGrid(width,height);
-    message = new Text(6,16,"Mines: " + mines);
+    message = new Text(6,16*getScale(),"Mines: " + mines);
     for (int i = 0; i < mines; i++) {
        while (true) {
          x = (int)(Math.random()*width);
@@ -51,9 +51,11 @@ public class Minesweeper extends AbstractGame {
     getGroup().getChildren().add(message);
   }
 
-  public boolean rClick(int x, int y) {
-    if (!gameOver && (x >= 0) && (y >= 0) && (x <= width) && (y <= height)) {
-      flags += grid.get(x,y).rClick();
+  public boolean rClick(double x, double y) {
+    int scaledX = (int)(x/(16*getScale()));
+    int scaledY = (int)(y/(16*getScale()))-2;
+    if (!gameOver && (scaledX >= 0) && (scaledY >= 0) && (scaledX <= width) && (scaledY <= height)) {
+      flags += grid.get(scaledX,scaledY).rClick();
       message.setText("Mines: " + (mines-flags));
       if (flags == mines) {
         for (int i = 0; i < width; i++) {
@@ -70,13 +72,28 @@ public class Minesweeper extends AbstractGame {
     return false;
   }
 
-  public boolean lClick(int x, int y) {
-    if (!gameOver && (x >= 0) && (y >= 0) && (x <= width) && (y <= height)) {
-      if (grid.get(x,y).lClick()) {
+  public boolean lClick(double x, double y) {
+    int scaledX = (int)(x/(16*getScale()));
+    int scaledY = (int)(y/(16*getScale()))-2;
+    if (!gameOver && (scaledX >= 0) && (scaledY >= 0) && (scaledX <= width) && (scaledY <= height)) {
+      if (grid.get(scaledX,scaledY).lClick()) {
         gameOver = true;
         message.setText("You Lost!");
       }
     }
     return false;
+  }
+
+  @Override
+  public void resize (double newScale) {
+    super.resize(newScale);
+    message.setY(16*getScale());
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        if (grid.get(i,j)!=null) {
+          grid.get(i,j).resize(getScale());
+        }
+      }
+    }
   }
 }

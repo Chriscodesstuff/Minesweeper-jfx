@@ -72,6 +72,16 @@ public abstract class AbstractTile implements Tile {
     return img;
   }
 
+  public void resize (double scale){
+    img.setX(x*(16*scale));
+    img.setY((y+2)*(16*scale));
+    img.setFitWidth(16*scale);
+    img.setFitHeight(16*scale);
+    img.setPreserveRatio(true);
+    img.setSmooth(true);
+    img.setCache(true);
+  }
+
   public int rClick() {
     if (!getRevealed()) {
       setMarked(!getMarked());

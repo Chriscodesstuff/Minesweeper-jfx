@@ -15,6 +15,7 @@ public interface Tile {
   public void setMarked(boolean b);
   public void setViewport(Rectangle2D r);
   public Node show();
+  public void resize(double scale);
   public int rClick();
   public boolean lClick();
 }
